@@ -1,0 +1,57 @@
+class NodeList{
+	int data;
+	NodeList next;
+	
+	NodeList(int d){
+		data = d;
+		next = null;
+	}
+}
+public class LinkedListAddition {
+	static NodeList root;
+	int count;
+	LinkedListAddition(int count){
+		this.count = count;
+	}
+	public static NodeList add(NodeList n1, NodeList n2){
+		LinkedListAddition l1 = new LinkedListAddition(0);
+		LinkedListAddition l2 = new LinkedListAddition(0);
+		int a = l1.getNumber(n1);
+		int b = l2.getNumber(n2);
+		int sum = a + b;
+		
+		while(sum != 0){
+			int temp = sum % 10;
+			NodeList newNode = new NodeList(temp);
+			newNode.next = root;
+			root = newNode;
+			sum = sum/10;
+		}
+		return root;
+	}
+	public int getNumber(NodeList n){
+		int sum = 0;
+		NodeList temp = n;
+		if(temp == null){
+			return sum;
+		}
+		sum = getNumber(temp.next);
+		int pow = (int)Math.pow(10, count);
+		count++;
+		sum = sum + (temp.data * pow);
+		return sum;
+	}
+	public static void main(String [] args){
+		NodeList root1 = new NodeList(1);
+		root1.next = new NodeList(2);
+		root1.next.next = new NodeList(2);
+		NodeList root2 = new NodeList(3);
+		root2.next = new NodeList(3);
+		root2.next.next = new NodeList(3);
+		NodeList res = add(root1, root2);
+		while(res != null){
+			System.out.print(res.data+" ");
+			res = res.next;
+		}
+	}
+}
