@@ -1,0 +1,31 @@
+import java.util.HashMap;
+
+public class FirstRepeatedWord {
+    static String firstRepeatedWord(String s) {
+    	
+    	String [] words = s.split(" ");
+    	int size = words.length;
+    	String res = new String();
+    	HashMap<String, Integer> hm = new HashMap<>();
+    	
+    	for(int i = 0; i < size; i++){
+    		if(hm.containsKey(words[i])){
+    			hm.put(words[i], hm.get(words[i]) + 1);
+    		}
+    		else{
+    			hm.put(words[i], 1);
+    		}
+    	}
+    	for(int i = 0; i < size; i++){
+    		if(hm.get(words[i]) > 1){
+    			res = words[i];
+    			break;
+    		}
+    	}
+    	return res;
+    }
+	public static void main(String [] args){
+		String a = "She had had quite enough";
+		System.out.println(firstRepeatedWord(a));
+	}
+}
