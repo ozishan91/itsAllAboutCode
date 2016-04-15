@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+class Tree{
+	int x;
+	Tree l;
+	Tree r;
+	
+	Tree(int d){
+		x = d;
+		l = r = null;
+	}
+}
+class Solution4 {
+	int max;
+    public int solution(Tree T) {
+    	ArrayList<Integer> path = new ArrayList<>();
+    	int value = getValues(T, path, 0);
+    	return value;
+    	}
+    public int getValues(Tree node, ArrayList<Integer> path, int pathlength){
+    	if(node == null){
+    		return 0;
+    	}
+    	int digits = 0;
+    	path.add(pathlength, node.x);
+    	pathlength++;
+    	if(node.l == null && node.r == null){
+    		HashSet<Integer> hs = new HashSet<>();
+    		
+    		for(int i = 0; i < pathlength; i++){
+    			hs.add(path.get(i));
+    		}
+    		System.out.println(hs);
+    		digits = hs.size();
+    		max = Math.max(max, digits);
+    	}
+    	else{
+    		getValues(node.l, path, pathlength);
+    		getValues(node.r, path, pathlength);
+    	}	
+    	return max;
+    	}
+        public static void main(String args[]) {
+        	Solution4 tree = new Solution4();
+            Tree root = new Tree(4);
+            root.l = new Tree(5);
+            root.r = new Tree(6);
+            root.l.l = new Tree(4);
+            root.r.l = new Tree(1);
+            root.l.l.l = new Tree(5);
+            root.r.r = new Tree(5);
+            root.r.l.l = new Tree(8);
+            root.r.r.l = new Tree(9);
+            root.r.r.l.r = new Tree(3);
+            int size = tree.solution(root);
+            System.out.println(size);
+        }
+
+}
