@@ -1,0 +1,42 @@
+class TreeNode2 {
+      int val;
+      TreeNode2 left;
+      TreeNode2 right;
+      TreeNode2(int x) { val = x; }
+}
+public class BalancedTree {
+	public int isBalanced(TreeNode2 a) {
+		if(a == null){
+			return 1;
+		}
+		int l = depth(a.left);
+		int r = depth(a.right);
+		int d = l - r;
+		d = Math.abs(d);
+		if(d <= 1 && isBalanced(a.left) == 1 && isBalanced(a.right) == 1){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+    public int max(int a, int b) {
+        return (a >= b) ? a : b;
+    }	
+	public int depth(TreeNode2 node){
+		if(node == null){
+			return 0;
+		}
+		return 1 + max(depth(node.left),depth(node.right));
+	}
+	public static void main(String args[]) {
+		BalancedTree tree = new BalancedTree();
+	    	TreeNode2 root = new TreeNode2(10);
+	        root.left = new TreeNode2(8);
+	        root.right = new TreeNode2(2);
+	        root.left.left = new TreeNode2(3);
+	        root.left.right = new TreeNode2(5);
+	        root.right.left = new TreeNode2(2);
+	        System.out.println(tree.isBalanced(root));
+	    }
+}
