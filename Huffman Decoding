@@ -1,0 +1,43 @@
+class NodeHuff{
+	char data;
+	NodeHuff left, right;
+	
+	NodeHuff(char d){
+		data = d;
+		left = right = null;
+	}
+}
+public class HuffmanDecoding {
+	void decode(String S ,NodeHuff root)
+    {
+		NodeHuff temp = root;
+        int len = S.length();
+        for(int i = 0; i < len; i++){
+        	if(S.charAt(i) == '1'){
+        		temp = temp.right;
+        		if(temp.left == null && temp.right == null){
+        			System.out.print(temp.data);
+        			temp = root;
+        		}
+        	}
+        	else if (S.charAt(i) == '0'){
+        		temp = temp.left;
+        		if(temp.left == null && temp.right == null){
+        			System.out.print(temp.data);
+        			temp = root;
+        		}
+        	}
+        }
+       
+    }
+	   public static void main(String[] args)
+	    {
+	        NodeHuff root = new NodeHuff('*');
+	        root.left = new NodeHuff('*');
+	        root.right = new NodeHuff('A');
+	        root.left.right = new NodeHuff('C');
+	        root.left.left = new NodeHuff('B');
+	        HuffmanDecoding t = new HuffmanDecoding();
+	        t.decode("1001011", root);
+	    }
+}
