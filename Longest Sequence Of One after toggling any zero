@@ -1,0 +1,44 @@
+
+public class LongestSequenceOfOne {
+	  
+	  public static int getIndex(int [] arr){
+	      int size = arr.length;
+	      int [] leftarr = new int[size];
+	      int [] rightarr = new int[size];
+	      int count = 0;
+	      for(int i = 0; i < size; i++){
+	          if(arr[i] == 1){
+	              leftarr[i] = 0;
+	              count++;
+	          }
+	          else{
+	              leftarr[i] = count;
+	              count = 0;
+	          }
+	      }
+	      count = 0;
+	      for(int i = size -1; i > 0; i--){
+	          if(arr[i] == 1){
+	              rightarr[i] = 0;
+	              count++;
+	          }
+	          else{
+	              rightarr[i] = count;
+	              count = 0;
+	          }
+	      }
+	      int max = 0;
+	      int index = 0;
+	      for(int i = 0; i < size; i++){
+	          if ((leftarr[i] + rightarr[i]) > max){
+	              max = leftarr[i] + rightarr[i];
+	              index = i;
+	          }
+	      }
+	     return index;
+	  }
+	  public static void main(String [] args){
+		  int [] arr = {1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1,0,1,1,1,1,1};
+		  System.out.println(getIndex(arr));
+	  }
+}
