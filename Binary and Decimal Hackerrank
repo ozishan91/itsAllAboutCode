@@ -1,0 +1,28 @@
+
+
+public class BinaryDecimal {
+	
+	public static void swap_array(int [] a){
+		int size = a.length;
+		for(int i = 0; i < size; i++){
+			for(int j = 1; j < size - i; j++){
+				if(getNoOfOnes(a[j-1]) < getNoOfOnes(a[j])){
+					int temp = a[j-1];
+					a[j-1] = a[j];
+					a[j] = temp;
+				}
+			}
+		}
+		for(int i = 0; i < size; i++){
+			System.out.println(a[i]);
+		}
+	}
+	public static int getNoOfOnes(int num){
+		int res = Integer.bitCount(num);
+		return res;
+	}
+	public static void main(String [] args){
+		int [] a = {31,14,15,7,2,1000000};
+		swap_array(a);
+	}
+}
