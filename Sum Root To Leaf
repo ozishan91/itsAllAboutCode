@@ -1,0 +1,58 @@
+/*Return Path having Sum of each path from root to leaf equal to a target value*/
+
+import java.util.ArrayList;
+
+class TreeNode {
+     int val;
+     TreeNode left;
+     TreeNode right;
+     TreeNode(int x) { val = x; }
+}
+
+public class SumRootToLeaf {
+	public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+	    ArrayList<Integer> path = new ArrayList<>();
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    getSum(path,root,0,sum,res);
+	    return res;
+	}
+	public static void getSum(ArrayList<Integer> path, TreeNode root, int sum, int s,ArrayList<ArrayList<Integer>> res){
+    	if(root == null){
+    		return;
+    	}
+	    path.add(root.val);
+	    
+	    if(root.left == null && root.right == null){
+	    	sum = sum + root.val;
+	    	if(sum == s){
+	            res.add(new ArrayList<>(path));
+	        }
+	        path.remove(path.size() - 1);
+	        
+	        return;
+	    }
+	    sum = sum + root.val;
+	    getSum(path,root.left,sum,s,res);
+	    getSum(path,root.right,sum,s,res);
+	    
+	    path.remove(path.size() - 1);
+	}
+    public static void main(String args[]) {
+    	SumRootToLeaf tree = new SumRootToLeaf();
+    	TreeNode root = new TreeNode(4);
+        root.left = new TreeNode(5);
+        root.right = new TreeNode(6);
+        root.left.left = new TreeNode(4);
+        root.right.left = new TreeNode(1);
+        root.left.left.left = new TreeNode(5);
+        root.right.right = new TreeNode(5);
+        root.right.left.left = new TreeNode(8);
+        root.right.right.left = new TreeNode(0);
+        root.right.right.left.right = new TreeNode(3);
+        //int size = tree.solution(root);
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        res = tree.pathSum(root, 18);
+        System.out.println(res);
+    }
+
+}
